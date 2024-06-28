@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>astrova | Detect</title>
+    <!-- <link rel="icon" type="image/x-icon" href="/assest/logoblck.png"> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+
+<body>
+    <div>
+        <img class="bg-img bg-img-1" src="/assest/Polygon 3.png" width="100px" alt="">
+        <img class="bg-img bg-img-2" src="/assest/Ellipse 1.png" width="600px" alt="">
+        <!-- <img class="bg-img bg-img-3" src="/assest/blue.png" width="50px" alt=""> -->
+    </div>
+    <header>
+        <div class="">
+            <img src="/assest/FINAL-LOGO-1.png" class="logo-img" width="250px" alt="">
+        </div>
+        <div class="header-menu">
+            <a href="">Dashboard</a>
+            <a href="">About us</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <hr>
+    </header>
+    <main class="main">
+        <div class="main-h1">
+            <h1><span class="head-white">Sna</span>p <span class="dot-red">.</span> Detect<span class="dot-red">.</span>
+                Amaze</h1>
+        </div>
+        <div class="main-2">
+            <div class="main-2-img">
+                <img id="deflautimg" src="/assest/img.png" width="550" alt="" style="display: block;">
+                <img id="imageDisplay" src="#" width="350" alt="Your Image" />
+                <h2 id="text-h2">"Where AI Meets Visual Intelligence"</h2>
+                <h1 id="predict"></h1>
+            </div>
+            <div class="main-2-upload">
+                <div class="upload-bg-img-main">
+                    <img class="upload-bg-img upload-bg-img-1" src="/assest/lightyl.png" width="200px" alt="">
+                    <img class="upload-bg-img upload-bg-img-2" src="/assest/Polygon 4.png" width="60px" alt="">
+                    <img class="upload-bg-img upload-bg-img-3" src="/assest/Polygon 6.png" width="70px" alt="">
+                    <img class="upload-bg-img upload-bg-img-4" src="/assest/Polygon 9.png" width="60px" alt="">
+                    <img class="upload-bg-img upload-bg-img-5" src="/assest/Polygon 8.png" width="60px" alt="">
+                    <!-- <img class="upload-bg-img upload-bg-img-5" src="/assest/Polygon 10.png" width="40px" alt="">
+                    <img class="upload-bg-img upload-bg-img-6" src="/assest/Polygon 6.png" width="40px" alt="">
+                    <img class="upload-bg-img upload-bg-img-7" src="/assest/Polygon 9.png" width="50px" alt=""> -->
+                </div>
+                <h1>Upload Image To Detect</h1>
+                <input type="file" id="imageUpload" accept="image/*" />
+                <br>
+                <h2>or Drop a file</h2>
+            </div>
+
+        </div>
+    </main>
+</body>
+<script>
+
+    let modelPromise;
+    let ap;
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = "https://teachablemachine.withgoogle.com/models/kx4Xojuri/model.json";
+        const metadataURL = "https://teachablemachine.withgoogle.com/models/kx4Xojuri/metadata.json";
+        // Load the model and metadata
+        return await tmImage.load(modelURL, metadataURL);
+    }
+    async function predict(image) {
+        let classPrediction = [];
+        const model = await modelPromise;
+        const totalclass = model.getTotalClasses();
+        const prediction = await model.predict(image, false);
+        try {
+            // Display the prediction
+            for (let i = 0; i < totalclass; i++) {
+                classPrediction.push([prediction[i].className[0] + prediction[i].probability.toFixed(2)])
+            }
+        } catch (error) {
+            alert("something went wrong!!")
+        }
+        console.log(classPrediction)
+        ap = classPrediction
+        if (classPrediction.length > 0) {
+            let temp;
+            for (let i = 0; i < 3; i++) {
+                console.log(classPrediction[i][0][1])
+                if (classPrediction[i][0][1] == 1) {
+
+                    if (classPrediction[i][0][0] == "S") {
+                        document.getElementById("predict").innerHTML = "Sheeepp!";
+                    } else if (classPrediction[i][0][0] == "G") {
+                        document.getElementById("predict").innerHTML = "Goatt!";
+                    } else if (classPrediction[i][0][0] == "C") {
+                        document.getElementById("predict").innerHTML = "Coww!";
+                    }
+                }
+
+            }
+        }
+    }
+    document.getElementById('imageUpload').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const defaultimgElement = document.getElementById('deflautimg');
+                defaultimgElement.src = e.target.result;
+
+                const text = document.getElementById('text-h2');
+                text.style.display = 'none';
+                // Create an image element to pass to the model
+
+
+
+                const img = new Image();
+                img.src = e.target.result;
+                console.log(predict(img))
+                img.onload = () => predict(img);  // Predict when the image has loaded
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    // Initialize the model
+    modelPromise = init();
+</script>
+
+</html>

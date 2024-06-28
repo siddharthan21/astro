@@ -1,0 +1,105 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class='login-main'>
+
+            <div class="form">
+                <div class='form-left'>
+                    <img src="/assest/FINAL-LOGO-1.png" width="250px" alt="">
+                </div>
+                <form action="/login" method="post" id="loginForm">
+                    <div class="form-heading">
+                        <h1>Get Started Now</h1>
+                        <h3><span>With  </span>Astrova Aerospace</h3>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    <div class='form-right'>
+                        <%  if (error) { %>
+                            <h3 style="color: rgb(229, 255, 0);"><%= error %></h3>
+                        <% } %>
+                        <div class="input-box">
+                            <label for=""  class="email">Email</label>
+                            <input type="text" name="email" id="username" placeholder="Username" required>
+
+                        </div>
+                        <div class="input-box">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password" required>
+
+                        </div>
+                        <div class="grp-btn">
+                            <button type="submit" class="btn">Login</button>
+                            <a href="../register" class="btn">Sgin Up</a>
+                        </div>
+                        <a href="/auth/google">Login With Google</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/login.css">
+    <title>astrova | Login</title>
+</head>
+<body>
+    <div>
+        <img class="bg-img bg-img-1" src="/assest/Polygon 3.png" width="100px" alt="">
+        <img class="bg-img bg-img-2" src="/assest/Ellipse 1.png" width="600px" alt="">
+        <!-- <img class="bg-img bg-img-3" src="/assest/blue.png" width="50px" alt=""> -->
+    </div>
+    <header>
+        <img src="/assest/FINAL-LOGO-1.png" class="logo-img" width="300px" alt="">
+    </header>
+    <main class="login">
+        <form action="/login" method="post">
+            <div class="form-main-top">
+                <img src="/assest/logoblck.png" width="250px" alt="">
+                <a href="/auth/google" class="google-sgin"> <img src="/assest/google.svg" width="29px">  Continue With Google</a>
+                <div class="line">
+                    <hr>
+                    <p>or</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="form-main-btm">
+                <div class="">
+                    <%  if (error) { %>
+                        <h3 style="color: rgb(255, 0, 0);"><%= error %></h3>
+                    <% } %>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="email" id="username" placeholder="Username" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="grp-btn">
+                    <button type="submit" class="btn">Login</button>
+                    <!-- <a href="../register" class="btn">Sgin Up</a> -->
+                </div>
+            </div>
+            <div class="form-main-last">
+                <a href="/register">don't have an account?register</a>
+                <!-- <a href="">forgot password</a> -->
+            </div>
+        </form>
+    </main>
+</body>
+</html>
