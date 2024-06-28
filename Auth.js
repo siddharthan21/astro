@@ -5,7 +5,7 @@ const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 passport.use(new GoogleStrategy({
     clientID:process.env.clientID,
     clientSecret:process.env.clientSecret,
-    callbackURL: "http://localhost:3000/auth/google/callback",
+    callbackURL: "https://astro-ob6k.onrender.com/auth/google/callback",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
