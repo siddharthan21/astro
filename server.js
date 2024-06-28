@@ -27,7 +27,8 @@ app.use('/assest', express.static(path.join(__dirname, 'public/assest')));
 
 // const uri = 'mongodb://localhost:27017'; // Replace with your MongoDB URI
 // const uri = "mongodb+srv://siddharthan44:MYrHu4EdzWvRLJDk@login.g6kvaie.mongodb.net/?retryWrites=true&w=majority&appName=Login";
-const uri = process.env.URI;
+// const uri = process.env.URI;
+const uri = "mongodb+srv://siddharthan44:MYrHu4EdzWvRLJDk@login.g6kvaie.mongodb.net/?retryWrites=true&w=majority&appName=Login";
 // const uri = "mongodb+srv://siddharthan44:MYrHu4EdzWvRLJDk@login.g6kvaie.mongodb.net/?appName=Login";
 const client = new MongoClient(uri, {
     serverApi: {
