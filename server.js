@@ -89,8 +89,7 @@ app.get('/success', isLoggedIn, async (req, res) => {
 
 app.get('/auth/google',
     passport.authenticate('google', {
-        scope:
-            ['email', 'profile']
+        scope:['https://www.googleapis.com/auth/plus.login]
     }
     ));
 
